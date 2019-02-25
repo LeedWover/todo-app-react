@@ -11,12 +11,12 @@ class App extends Component {
   
   componentDidMount = () => {
     this.setState({loading: true});
-    fetch('https://jsonplaceholder.typicode.com/todos')
+    setTimeout(() => {fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(todos => {
         const todoList = todos.slice(0, 10);
         this.setState({todos: todoList, loading: false});
-      });
+      })}, 1500);
   }
 
   render() {
