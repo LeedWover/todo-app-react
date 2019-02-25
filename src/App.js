@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Todos from './components/Todos/Todos';
+import Spinner from './components/Spinner/Spinner';
 
 class App extends Component {
   state = {
@@ -19,7 +20,7 @@ class App extends Component {
   }
 
   render() {
-    let component = this.state.loading ? 'Loading...' : <Todos todos={this.state.todos} />
+    let component = this.state.loading ? <Spinner /> : <Todos todos={this.state.todos} />
     return (
       <div>
         {component}
