@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Todos from './components/Todos/Todos';
 
 class App extends Component {
+  state = {
+    loading: false,
+    todos : []
+  }
+  
+  componentDidMount = () => {
+    this.setState({loading: true});
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(todos => {
+        const todoList = todos.slice(0, 10);
+        this.setState({todos: todoList, loading: false});
+      });
+  }
+
   render() {
+    let component = this.state.loading ? 'Loading...' : <Todos todos={this.state.todos} />
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        {component}
       </div>
     );
   }
